@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import EditTask from '../modals/EditTask';
 
-const Card = ({taskObj, index, deletetask}) => {
+const Card = ({taskObj, index, deletetask, updateListArray}) => {
     const [modal, setModal] = useState(false);
 
     const colors = [
@@ -31,8 +31,8 @@ const Card = ({taskObj, index, deletetask}) => {
         setModal(!modal);
     }
 
-    const updatetask = () => {
-        //   
+    const updatetask = (obj) => {
+        updateListArray(obj, index)
     }
 
     const handleDelete = () =>{
