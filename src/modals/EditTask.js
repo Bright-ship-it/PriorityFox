@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Modal, ModalBody, ModalHeader, ModalFooter } from 'reactstrap';
 
 
-const EditTaskPopup = ({modal, toggle, updatetask}) => {
+const EditTaskPopup = ({modal, toggle, updatetask, taskObj}) => {
     const [taskName, setTaskname] = useState('');
     const [description, setDescription] = useState('');
 
@@ -16,16 +16,22 @@ const EditTaskPopup = ({modal, toggle, updatetask}) => {
         }
     }
 
-    const handleSave = () => {
-        let taskObj = {}
-        taskObj['Name'] = taskName
-        taskObj['Description'] = description
-        save(taskObj)
+    useEffect(() => {
+        setTaskname(taskObj.Name)
+        setDescription(taskObj.Description)
+    }, [])
+
+    const handleUpdate = (e) => {
+        e.preventDefault();
+        let tempObj = {}
+        tempObj['Name'] = taskName
+        tempObj['Description'] = description
+        updatetask(tempObj)
     }
 
     return (
         <Modal isOpen={modal} toggle={toggle}>
-            <ModalHeader toggle={toggle}>Create Task</ModalHeader>
+            <ModalHeader toggle={toggle}>Update Task</ModalHeader>
             <ModalBody>
                 <form>
                     <div className='form-group'>
@@ -39,7 +45,7 @@ const EditTaskPopup = ({modal, toggle, updatetask}) => {
                 </form>
             </ModalBody>
             <ModalFooter>
-                <Button color='primary' onClick={handleSave}>Create</Button>{' '}
+                <Button color='primary' onClick={handleUpdate}>Update</Button>{' '}
                 <Button color='secondary' onClick={toggle}>Cancel</Button>
             </ModalFooter>
         </Modal>
