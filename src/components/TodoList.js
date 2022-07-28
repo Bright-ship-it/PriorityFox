@@ -1,11 +1,20 @@
 import React, { useState } from 'react';
-import CreateTask from '../modals/createTask'
+import CreateTask from '../modals/CreateTask'
 
 const TodoList = () => {
     const [modal, setModal] = useState(false);
+    const [taskList, setTaskList] = useState([])
+
     const toggle = () => {
         setModal(!modal);
     }
+
+    const saveTask = (taskObj) => {
+        let tempList = taskList
+        tempList.push(taskObj)
+        setTaskList(tempList)
+    }
+
     return (
         <>
             <div className='header text-center'>
@@ -15,7 +24,7 @@ const TodoList = () => {
             <div className='task-container'>
 
             </div>
-            <CreateTask modal={modal} toggle={toggle}/>
+            <CreateTask modal={modal} toggle={toggle} save = {saveTask}/>
         </>
     );
 };
