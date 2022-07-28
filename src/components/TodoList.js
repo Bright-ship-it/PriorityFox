@@ -13,6 +13,7 @@ const TodoList = () => {
         let tempList = taskList
         tempList.push(taskObj)
         setTaskList(tempList)
+        setModal(false)
     }
 
     return (
@@ -22,7 +23,7 @@ const TodoList = () => {
                 <button className='btn btn-primary mt-2' onClick={() => setModal(true)}>Create Task</button>
             </div>
             <div className='task-container'>
-
+                {taskList.map((obj) => <li>{obj.Name}</li>)}
             </div>
             <CreateTask modal={modal} toggle={toggle} save = {saveTask}/>
         </>
